@@ -19,7 +19,7 @@
 - [ ] ban account {freeze account}
 - [ ] add account
 - [ ] add account type 
-- [ ] interest rate
+- [X] interest rate
 - [ ] 
 - [ ] 
 - [ ] 
@@ -28,8 +28,8 @@
 ## customer 
 
 - [ ] change details
-- [ ] deposit
-- [ ] withdraw
+- [X] deposit
+- [X] withdraw
 - [ ] currancy converter
 - [ ] 
 
