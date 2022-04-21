@@ -35,6 +35,8 @@
 
 
 ## Ideas
+----------------------------------
+History of Transactions
 
 ----------------------------------
 Super class: Account
