@@ -10,7 +10,7 @@ package bank_account;
  * @author qwerty
  */
 public class Vip_Account extends Customer {
-    private Admin a;
+
     //Constructor1
      public Vip_Account(String name) {
         super(name);
@@ -20,8 +20,8 @@ public class Vip_Account extends Customer {
     //display
      @Override
      public String display(){
-         super.display();
-         return "Max WithDraw: "+a.MaxWithDraw(this);
+        return super.display()+"\n"
+                + "Max WithDraw: "+super.Max_Withdraw;
      }
 
   

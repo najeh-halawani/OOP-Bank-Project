@@ -17,23 +17,41 @@ public class Customer {
     protected double rate;
     protected double Max_Withdraw;
     protected String name;
-    protected String Id;
+    protected int Id=1;
     protected double balance;
     protected boolean banned;
+    protected String Adress;
+    protected boolean Type=false;
+    protected String Date_Of_Birth;
     //Constructor
-    public Customer(){}
+    public Customer(){
+        
+        Id++;
+        this.balance=0; 
+    }
     public Customer(String name){
         this.name=name;
-        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDateTime now = LocalDateTime.now();
-        this.Id=dtf.format(now);
+        Id++;
         this.balance=0;    
+    }
+    Admin a=new Admin();
+    public void setMaxWithdraw(){
+        
+        a.MaxWithDraw(this);
+    }
+    public boolean isVIP(){
+       Type=true;
+       return Type;
     }
     //setter
     public void setBan(boolean ban){
         banned=ban;
     }
 
+    public void setDate_Of_Birth(String Date_Of_Birth) {
+        this.Date_Of_Birth = Date_Of_Birth;
+    }
+    
     public void setName(String name) {
         this.name = name;
     }
@@ -47,7 +65,7 @@ public class Customer {
         return name;
     }
 
-    public String getId() {
+    public int getId() {
         return Id;
     }
 
@@ -60,6 +78,7 @@ public class Customer {
     public String display(){
         return "Name: "+name+"\n"
                 + "Id: "+Id+"\n"
-                + "Balance: "+balance;
+                + "Balance: "+balance+"\n"
+                + "Adress: "+Adress;
     }
 }

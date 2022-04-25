@@ -1,9 +1,18 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package bank_account;
 
 import java.util.Date;
 
+/**
+ *
+ * @author qwerty
+ */
 public class Atm {
-    private String Location;
+     private String Location;
     private double maxAmount;
     public int closingHour;
     public int openingHour;
@@ -68,7 +77,7 @@ public class Atm {
     public boolean Deposit(Customer c, double depositAmount) {
         if( d.getTime() >= openingHour && d.getTime() <= closingHour) {
             if(depositAmount >0) {
-                c.Balance = c.getBalance() + depositAmount;
+                c.balance = c.getBalance() + depositAmount;
             return true;
             }
         }
@@ -77,12 +86,11 @@ public class Atm {
 
     public boolean Withdraw(Customer c, double withdrawAmount) {
         if(d.getTime() >= openingHour && d.getTime() <= closingHour) {
-            if(withdrawAmount <= c.Balance) {
-                c.Balance = c.getBalance() - withdrawAmount;
+            if(withdrawAmount <= c.balance) {
+                c.balance = c.getBalance() - withdrawAmount;
                 return true;
             }
         }
         return false;
     }
-
 }

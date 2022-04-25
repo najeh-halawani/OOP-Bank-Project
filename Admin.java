@@ -5,6 +5,9 @@
  */
 package bank_account;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Random;
 import javax.swing.JOptionPane;
 
 /**
@@ -87,26 +90,52 @@ public class Admin {
         return "";
     }
     //Max WithDraw
-    public int MaxWithDraw(Customer c){
-        if(SearchCustomer(c)!=-1){
+    public void MaxWithDraw(Customer c){
+        if(SearchCustomer(c)==1){
+            int count=1;
             for(int i=0;i<current;i++){
-                if(customers[i]==c){
-                    if(customers[i] instanceof Vip_Account){
-                        customers[i].Max_Withdraw=5000;
-                        return 5000;
-                    }
-                    else if(customers[i] instanceof Regular_Account){
+                if(customers[i]==c&&customers[i] instanceof Vip_Account){
                         customers[i].Max_Withdraw=20000;
-                        return 20000;
+                        
+                      
+                    }
+                    else{
+                        customers[i].Max_Withdraw=5000;   
+                        
                     }
                 }
-            }
+            
         }
-        else{
-            JOptionPane.showMessageDialog(null, "Not Found");
-          
-        } 
-        return 0;
+      
+                
+    }
+    //generate credit card
+    public String generateCreditNumber() {
+        Random random = new Random();
+        String creditNumber;
+        int rand1, rand2, rand3;
+
+        rand1 = random.nextInt(9999)+1000;
+        rand2 = random.nextInt(9999)+1000;
+        rand3 = random.nextInt(9999)+1000;
+
+        creditNumber = rand1 + " " + rand2 + " " + rand3;
+
+        return creditNumber;
+    }
+    //generate cvv
+       public int generateCVV() {
+        Random random = new Random();
+        int cvv = random.nextInt(999)+100;
+        return cvv;
+    }
+
+    // generate expiry date + year from today
+    public String generateExpD() {
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM");
+        LocalDateTime now = LocalDateTime.now().plusYears(1);
+        String expDate = dtf.format(now);
+        return expDate;
     }
     
     //Intrest

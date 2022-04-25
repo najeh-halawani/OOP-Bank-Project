@@ -5,19 +5,22 @@
  */
 package bank_account;
 
+import java.util.Scanner;
+
 /**
  *
  * @author qwerty
  */
-public class Regular_Account extends Customer {
-     //Constructor1
-    public Regular_Account(String name) {
-        super(name);
-    }
-    //Constructor2
-    public Regular_Account(){}
-    //
-    
-    
+public class Bank_Account {
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+       
+        
      
+     
+    }
+    
 }

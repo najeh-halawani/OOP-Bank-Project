@@ -1,5 +1,16 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package bank_account;
 
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author qwerty
+ */
 public class Bank {
     private String Name;
     private Atm[] atms;
@@ -12,14 +23,19 @@ public class Bank {
     public Bank(String name,  String location, int maxAtms) {
         this.maxAtms = maxAtms;
         Name = name;
-        this.atms = atms;
+        atms=new Atm[maxAtms];
         Location = location;
         atmCounter=0;
     }
 
+    
+
 
     public boolean isFullAtms(){
-        return maxAtms == atms.length;
+        if(atmCounter<atms.length){
+            return false;
+        }
+        return true;
     }
 
     public boolean isEmptyAtms() {
@@ -27,11 +43,13 @@ public class Bank {
     }
 
     public boolean addAtm(Atm atm) {
-        if(!isFullAtms()) {
+        if(!isFullAtms()){
             atms[atmCounter++] = atm;
-            return true;
-        }
-        return false;
+            return true;}
+        else{
+            JOptionPane.showMessageDialog(null, "No More Space!");
+            return false;
+        }    
     }
 
 
@@ -50,7 +68,7 @@ public class Bank {
     }
 
     public void getAllAtms(){
-        for(int i=0; i < atms.length; i++) {
+        for(int i=0; i < atmCounter; i++) {
             atms[i].display();
         }
     }
