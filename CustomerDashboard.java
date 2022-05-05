@@ -315,10 +315,6 @@ public class CustomerDashboard extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(471, 471, 471)
-                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addGap(52, 52, 52)
                 .addComponent(jLabel10)
                 .addGap(81, 81, 81)
@@ -410,6 +406,10 @@ public class CustomerDashboard extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(changePassBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                         .addGap(124, 124, 124))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 529, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(278, 278, 278))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -418,9 +418,9 @@ public class CustomerDashboard extends javax.swing.JFrame {
                 .addComponent(jLabel10)
                 .addGap(77, 77, 77))
             .addGroup(layout.createSequentialGroup()
-                .addGap(41, 41, 41)
+                .addGap(53, 53, 53)
                 .addComponent(welcomeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(42, 42, 42)
+                .addGap(30, 30, 30)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -489,7 +489,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(WithButton)
                         .addGap(5, 5, 5)))
-                .addGap(20, 20, 20)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel18, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -546,9 +546,13 @@ public class CustomerDashboard extends javax.swing.JFrame {
             
             JOptionPane.showMessageDialog(this, "Done");
             Balance.setText(updatedBalance+"");
+            
+                  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM");
+                    LocalDateTime now = LocalDateTime.now().plusYears(1);
+                    String userDate = dtf.format(now);
                 insert = con1.prepareStatement("insert into history(username,date,actionType,amount)values(?,?,?,?)");
                 insert.setString(1, userId);
-                insert.setString(2, "test");
+                insert.setString(2, userDate);
                 insert.setString(3, "Deposit");
                 insert.setString(4, "+"+depAmount);
                 insert.executeUpdate();
@@ -568,8 +572,7 @@ public class CustomerDashboard extends javax.swing.JFrame {
         
     }//GEN-LAST:event_DepButtonActionPerformed
 double withdrawAmount ;
-DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM-dd");
-LocalDateTime now = LocalDateTime.now();
+
     private void WithButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WithButtonActionPerformed
         // TODO add your handling code here:
         
@@ -597,11 +600,13 @@ LocalDateTime now = LocalDateTime.now();
                     JOptionPane.showMessageDialog(this, "Done");
                     Balance.setText(updatedBalance+"");
                     
-
+                    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM");
+                    LocalDateTime now = LocalDateTime.now().plusYears(1);
+                    String userDate = dtf.format(now);
 
                     insert = con1.prepareStatement("insert into history(username,date,actionType,amount)values(?,?,?,?)");
                     insert.setString(1, userId);
-                    insert.setString(2, "test");
+                    insert.setString(2, userDate);
                     insert.setString(3, "Withdraw");
                     insert.setString(4, "-"+withdrawField.getText());
                     System.out.println(withdrawField.getText());

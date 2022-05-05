@@ -36,9 +36,9 @@ public class Admin_Customer extends javax.swing.JFrame {
         creditnumber.setEnabled(false);
        button.setVisible(false);
         try {
- 
+            
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
             JOptionPane.showMessageDialog(null, "Connection Sucessfull");
             
          }
@@ -57,7 +57,7 @@ public class Admin_Customer extends javax.swing.JFrame {
          try {
  
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
             PreparedStatement insert =con.prepareStatement("select * from customers");
              ResultSet rs= insert.executeQuery();
             ResultSetMetaData Rss=rs.getMetaData();
@@ -67,16 +67,16 @@ public class Admin_Customer extends javax.swing.JFrame {
             while(rs.next()){
                 Vector v2=new Vector();
                 for(int a=1;a<=c;a++){
-                    v2.add(rs.getString("Id"));
-                    v2.add(rs.getString("name"));
-                    v2.add(rs.getString("Adress"));
-                    v2.add(rs.getString("DOB"));
-                    v2.add(rs.getString("AccountType"));
-                    v2.add(rs.getString("Balance"));
-                    v2.add(rs.getString("CreditCard"));
-                    v2.add(rs.getString("CVV"));
-                    v2.add(rs.getString("ExipryDate"));
-                    v2.add(rs.getString("IsBanned"));
+                      v2.add(rs.getString("id"));
+                        v2.add(rs.getString("name"));
+                        v2.add(rs.getString("address"));
+                        v2.add(rs.getString("dateOfBirth"));
+                        v2.add(rs.getString("AccountType"));
+                        v2.add(rs.getString("balance"));
+                        v2.add(rs.getString("CreditCardNumber"));
+                        v2.add(rs.getString("CVV"));
+                        v2.add(rs.getString("CreditCardExpDate"));
+                        v2.add(rs.getString("banned"));
                 }
                 Df.addRow(v2);
                 
@@ -111,10 +111,10 @@ public class Admin_Customer extends javax.swing.JFrame {
         Adress = new javax.swing.JTextField();
         Fname = new javax.swing.JTextField();
         Lname = new javax.swing.JTextField();
-        TypeAccount = new javax.swing.JComboBox<>();
-        D = new javax.swing.JComboBox<>();
-        M = new javax.swing.JComboBox<>();
-        Y = new javax.swing.JComboBox<>();
+        TypeAccount = new javax.swing.JComboBox<String>();
+        D = new javax.swing.JComboBox<String>();
+        M = new javax.swing.JComboBox<String>();
+        Y = new javax.swing.JComboBox<String>();
         b = new javax.swing.JLabel();
         Initial = new javax.swing.JTextField();
         submit = new javax.swing.JButton();
@@ -167,18 +167,18 @@ public class Admin_Customer extends javax.swing.JFrame {
         Lname.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         Lname.setPreferredSize(new java.awt.Dimension(7, 19));
 
-        TypeAccount.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "REGULAR", "VIP" }));
+        TypeAccount.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "REGULAR", "VIP" }));
 
-        D.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
+        D.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30" }));
 
-        M.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "00", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
+        M.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "00", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12" }));
         M.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 MActionPerformed(evt);
             }
         });
 
-        Y.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0000", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022" }));
+        Y.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "0000", "1970", "1971", "1972", "1973", "1974", "1975", "1976", "1977", "1978", "1979", "1980", "1981", "1982", "1983", "1984", "1985", "1986", "1987", "1988", "1989", "1990", "1991", "1992", "1993", "1994", "1995", "1996", "1997", "1998", "1999", "2000", "2001", "2002", "2003", "2004", "2005", "2006", "2007", "2008", "2009", "2010", "2011", "2012", "2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022" }));
 
         b.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         b.setText("Initial Deposit");
@@ -234,6 +234,7 @@ public class Admin_Customer extends javax.swing.JFrame {
             }
         });
 
+        jTable1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -402,7 +403,7 @@ Customer c;
          try {
  
             Class.forName("com.mysql.cj.jdbc.Driver");
-            Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
             if(TypeAccount.getSelectedItem().toString().equalsIgnoreCase("regular")){
             c=new Regular_Account();
             c.setBalance(Integer.parseInt(Initial.getText()));
@@ -432,6 +433,7 @@ Customer c;
             
             }
             String name=Fname.getText()+" "+Lname.getText();
+            String username = Fname.getText()+Lname.getText();
             String adress=Adress.getText();
             String dob=M.getSelectedItem().toString()+"-"+D.getSelectedItem().toString()+"-"+Y.getSelectedItem().toString();
             String Type=TypeAccount.getSelectedItem().toString();
@@ -439,7 +441,7 @@ Customer c;
             String credit=creditnumber.getText();
             String cv=cvv.getText();
             String ED=expiry.getText();
-            PreparedStatement insert =con.prepareStatement("insert into customers(name,Adress,DOB,AccountType,Balance,CreditCard,CVV,ExipryDate)value(?,?,?,?,?,?,?,?)");
+            PreparedStatement insert =con.prepareStatement("insert into customers(name,address,dateOfBirth,AccountType,balance,creditCardNumber,CVV,CreditCardExpDate,password, FirstName, LastName,username)value(?,?,?,?,?,?,?,?,?,?,?,?)");
             insert.setString(1, name);
             insert.setString(2, adress);
             insert.setString(3, dob);
@@ -448,6 +450,10 @@ Customer c;
             insert.setString(6, credit);
             insert.setString(7, cv);
             insert.setString(8, ED);
+            insert.setString(9, Y.getSelectedItem().toString());
+            insert.setString(10, Fname.getText());
+            insert.setString(11, Lname.getText());
+            insert.setString(12, username);
             insert.executeUpdate();
             JOptionPane.showMessageDialog(this, "Recorded added");
             table_update();
@@ -623,10 +629,10 @@ Customer c;
          int selectedIndex=jTable1.getSelectedRow();
          try {
             
-            int dialiogResult=JOptionPane.showConfirmDialog(null, "Do You Want delete This student? ","Warning",JOptionPane.YES_NO_OPTION);
+            int dialiogResult=JOptionPane.showConfirmDialog(null, "Do You Want delete This Record? ","Warning",JOptionPane.YES_NO_OPTION);
             if(dialiogResult==JOptionPane.YES_OPTION){
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+            Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
               
            PreparedStatement insert =con.prepareStatement("delete from customers where id=? ");
             int id=Integer.parseInt(Adress.getText());
@@ -656,9 +662,9 @@ Customer c;
            try {          
             
                 Class.forName("com.mysql.cj.jdbc.Driver");
-                Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+                Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
                 String name=Fname.getText()+" "+Lname.getText();
-                PreparedStatement insert =con.prepareStatement("update  customers set isBanned =? where name=?  ");
+                PreparedStatement insert =con.prepareStatement("update  customers set banned =? where name=?  ");
                 insert.setInt(1, 1);
                 insert.setString(2, name);
                 insert.executeUpdate();
@@ -677,7 +683,7 @@ Customer c;
            try {          
             int c;
                     Class.forName("com.mysql.cj.jdbc.Driver");
-                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost/mydb", "Test", "123mustafa456");
+                    Connection con=DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
                     String name=Fname.getText()+" "+Lname.getText();
                     PreparedStatement insert =con.prepareStatement("select * from customers where name=?");
                     insert.setString(1, name);
@@ -689,16 +695,16 @@ Customer c;
                    while(rs.next()){
                    Vector v2=new Vector();
                     for(int a=1;a<=c;a++){
-                        v2.add(rs.getString("Id"));
+                        v2.add(rs.getString("id"));
                         v2.add(rs.getString("name"));
-                        v2.add(rs.getString("Adress"));
-                        v2.add(rs.getString("DOB"));
+                        v2.add(rs.getString("address"));
+                        v2.add(rs.getString("dateOfBirth"));
                         v2.add(rs.getString("AccountType"));
-                        v2.add(rs.getString("Balance"));
-                        v2.add(rs.getString("CreditCard"));
+                        v2.add(rs.getString("balance"));
+                        v2.add(rs.getString("CreditCardNumber"));
                         v2.add(rs.getString("CVV"));
-                        v2.add(rs.getString("ExipryDate"));
-                        v2.add(rs.getString("IsBanned"));
+                        v2.add(rs.getString("CreditCardExpDate"));
+                        v2.add(rs.getString("banned"));
                   }
                 Df.addRow(v2);
                 
