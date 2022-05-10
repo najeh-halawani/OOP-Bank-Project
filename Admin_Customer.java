@@ -414,8 +414,6 @@ Customer c;
             creditnumber.setText(a.generateCreditNumber());
             String Date=Y.getSelectedItem().toString()+D.getSelectedItem().toString()+M.getSelectedItem().toString();
             c.Date_Of_Birth=Date;
-            a.AddCustomer(c);
-            a.MaxWithDraw(c); 
            
            }    
            else{
@@ -428,9 +426,6 @@ Customer c;
             creditnumber.setText(a.generateCreditNumber());
             String Date=Y.getSelectedItem().toString()+D.getSelectedItem().toString()+M.getSelectedItem().toString();
             c.Date_Of_Birth=Date;        
-            a.AddCustomer(c);
-            a.MaxWithDraw(c);
-            
             }
             String name=Fname.getText()+" "+Lname.getText();
             String username = Fname.getText()+Lname.getText();

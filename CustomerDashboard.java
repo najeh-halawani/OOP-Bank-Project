@@ -14,7 +14,12 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -32,14 +37,16 @@ public class CustomerDashboard extends javax.swing.JFrame {
     String creditCardNumber, username, FirstNameDB, LastNameDB, cvvDB, expiryDateDB, dobDB, addressDB, AccountType,oldPassword;
     double balance, oldBalance, updatedBalance;
     String userId;
-    
+    Date d = new Date();
+    Customer cc = new Customer();
     public CustomerDashboard() {
         initComponents();
     }
-    
+
     public CustomerDashboard(String userId) {
         initComponents();
         this.userId = userId;
+       
         tableUpdate();
     
             int c;
@@ -85,10 +92,17 @@ public class CustomerDashboard extends javax.swing.JFrame {
         address.setText(addressDB);
         AccType.setText(AccountType);
         welcomeLabel.setText("Welcome " + userId + "!");
-        
-        
-        
-        
+ 
+        Timer timer = new Timer();
+
+        timer.schedule(new TimerTask() {
+        @Override
+        public void run() {
+          Balance.setText(cc.addInterest(userId)+"");
+        }
+        }, 0, 1000);
+
+
         
     }
 
@@ -521,53 +535,59 @@ public class CustomerDashboard extends javax.swing.JFrame {
 
     private void DepButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DepButtonActionPerformed
         // TODO add your handling code here:
-        
-           try {
+         
             
-            Class.forName("com.mysql.cj.jdbc.Driver");
-            con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
-            deposit = con1.prepareStatement("Select balance from customers where username=?");
-            deposit.setString(1, userId);
-            
-            ResultSet rs = deposit.executeQuery();
-            while(rs.next()) {
-                oldBalance = rs.getDouble("balance");
-            }
-            double depAmount=Integer.parseInt(DepAmount.getText());
-            if(depAmount > 0 ) {
-                  updatedBalance = oldBalance + depAmount;
-            
-        
-            update = con1.prepareStatement("update customers set balance=? where username=?");
-            update.setDouble(1, updatedBalance);
-            update.setString(2, userId);
-            
-            update.executeUpdate();
-            
-            JOptionPane.showMessageDialog(this, "Done");
-            Balance.setText(updatedBalance+"");
-            
-                  DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM");
-                    LocalDateTime now = LocalDateTime.now().plusYears(1);
-                    String userDate = dtf.format(now);
-                insert = con1.prepareStatement("insert into history(username,date,actionType,amount)values(?,?,?,?)");
-                insert.setString(1, userId);
-                insert.setString(2, userDate);
-                insert.setString(3, "Deposit");
-                insert.setString(4, "+"+depAmount);
-                insert.executeUpdate();
-                DepAmount.setText("");
-                tableUpdate();  
-            } else { 
-                JOptionPane.showMessageDialog(this, "Enter a positive Amount");
-            }
-        
-        }catch (ClassNotFoundException ex){
-            System.out.println(ex);
-        } catch (SQLException ex) {
-            System.out.println(ex);
+        if(d.getHours() < 20) {
+            try {
+
+             Class.forName("com.mysql.cj.jdbc.Driver");
+             con1 = DriverManager.getConnection("jdbc:mysql://localhost:3306/bankdb", "root", "");
+             deposit = con1.prepareStatement("Select balance from customers where username=?");
+             deposit.setString(1, userId);
+
+             ResultSet rs = deposit.executeQuery();
+             while(rs.next()) {
+                 oldBalance = rs.getDouble("balance");
+             }
+             double depAmount=Integer.parseInt(DepAmount.getText());
+             if(depAmount > 0 ) {
+                   updatedBalance = oldBalance + depAmount;
+
+
+             update = con1.prepareStatement("update customers set balance=? where username=?");
+             update.setDouble(1, updatedBalance);
+             update.setString(2, userId);
+
+             update.executeUpdate();
+
+             JOptionPane.showMessageDialog(this, "Done");
+             Balance.setText(updatedBalance+"");
+
+                   DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yy-MM");
+                     LocalDateTime now = LocalDateTime.now().plusYears(1);
+                     String userDate = dtf.format(now);
+                 insert = con1.prepareStatement("insert into history(username,date,actionType,amount)values(?,?,?,?)");
+                 insert.setString(1, userId);
+                 insert.setString(2, userDate);
+                 insert.setString(3, "Deposit");
+                 insert.setString(4, "+"+depAmount);
+                 insert.executeUpdate();
+                 DepAmount.setText("");
+                 tableUpdate();  
+             } else { 
+                 JOptionPane.showMessageDialog(this, "Enter a positive Amount");
+                 DepAmount.setText("");
+
+             }
+
+         }catch (ClassNotFoundException ex){
+             System.out.println(ex);
+         } catch (SQLException ex) {
+             System.out.println(ex);
+         }
+        } else { 
+            JOptionPane.showMessageDialog(this, "Atm is closed, please come back tomorrow!");
         }
-        
         
         
     }//GEN-LAST:event_DepButtonActionPerformed
@@ -575,7 +595,7 @@ double withdrawAmount ;
 
     private void WithButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_WithButtonActionPerformed
         // TODO add your handling code here:
-        
+        if(d.getHours() < 20) {
                try {
             
             Class.forName("com.mysql.cj.jdbc.Driver");
@@ -624,6 +644,9 @@ double withdrawAmount ;
             System.out.println(ex);
         } catch (SQLException ex) {
             System.out.println(ex);
+        }
+        } else { 
+            JOptionPane.showMessageDialog(this, "Atm is closed please try again tomorrow!");
         }
         
     }//GEN-LAST:event_WithButtonActionPerformed
